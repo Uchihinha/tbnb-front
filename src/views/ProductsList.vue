@@ -52,6 +52,8 @@
 			</el-table-column>
 
 		</el-table>
+		
+		<paginator @change-page="changePage" :total="totalProducts" />
 	</div>
 
 	<bulk-update-dialog @save="saveBulk" @close="isBulkUpdateDialogVisible = false" :visible="isBulkUpdateDialogVisible" />
@@ -60,16 +62,20 @@
 
 <script>
 import BulkUpdateDialog from '../components/BulkUpdateDialog.vue';
+import Paginator from '../components/Paginator.vue';
 import { getProducts, bulkUpdateProduct } from '../services/product/index';
 
 export default {
-	components: { BulkUpdateDialog },
+	components: { BulkUpdateDialog, Paginator },
 	data() {
 		return {
 			search: '',
 			products: [],
+			totalProducts: 0,
 			selectedItems: [],
-			isBulkUpdateDialogVisible: false
+			isBulkUpdateDialogVisible: false,
+			currentPage: 1,
+			paginate: 2
 		};
 	},
 	methods: {
@@ -80,8 +86,9 @@ export default {
 		// 	console.log(index, row);
 		// },
 		getProducts() {
-			getProducts().then((res) => {
+			getProducts(this.currentPage, this.paginate).then((res) => {
 				this.products = res.data.data;
+				this.totalProducts = res.data.total;
 			});
 		},
 		createNew() {
@@ -119,6 +126,10 @@ export default {
 					});
 				});
 				
+		},
+		changePage(newPage) {
+			this.currentPage = newPage;
+			this.getProducts();
 		}
 	},
 	mounted() {
