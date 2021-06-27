@@ -1,5 +1,6 @@
 <template>
 <div class="list-container">
+	<h1 class="list-container__title">Products List</h1>
 
 	<div class="list-container__header">
 		<el-input prefix-icon="el-icon-search" class="list-container__search-input" placeholder="What are you looking for?" v-model="search" />
@@ -80,6 +81,10 @@ export default {
 	.list-container {
 		max-width: 90%;
 		margin: 0 auto;
+
+		&__title {
+			text-align: left;
+		}
 
 		&__table {
 			border-radius: 10px;
