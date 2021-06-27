@@ -30,11 +30,6 @@ export default {
 		handleClose() {
 			this.$emit('close');
 		},
-	},
-	watch: {
-		events() {
-			console.log(this.events);
-		}
 	}
 };
 </script>

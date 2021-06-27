@@ -49,7 +49,7 @@
 				<template #default="scope">
 					<el-button size="mini" @click="handleStockHistory(scope.row.id)" icon="el-icon-takeaway-box" />
 					<el-button size="mini" @click="handleEdit(scope.row.id)">Edit</el-button>
-					<!-- <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">Delete</el-button> -->
+					<el-button size="mini" icon="el-icon-delete" type="danger" @click="handleDelete(scope.row.id)" />
 				</template>
 			</el-table-column>
 
@@ -67,7 +67,7 @@
 import BulkUpdateDialog from '../components/Dialogs/BulkUpdateDialog.vue';
 import StockHistoryDialog from '../components/Dialogs/StockHistoryDialog.vue';
 import Paginator from '../components/Paginator.vue';
-import { getProducts, bulkUpdateProduct, getStockHistory } from '../services/product/index';
+import { getProducts, bulkUpdateProduct, getStockHistory, deleteProduct } from '../services/product/index';
 
 export default {
 	components: { BulkUpdateDialog, Paginator, StockHistoryDialog },
@@ -88,9 +88,31 @@ export default {
 		handleEdit(id) {
 			this.$router.push(`/products/${id}`);
 		},
-		// handleDelete(index, row) {
-		// 	console.log(index, row);
-		// },
+		handleDelete(id) {
+			this.$confirm('Are you sure to delete the product?', `Delete Product #${id}`, {
+				confirmButtonText: 'Yes',
+				cancelButtonText: 'No, cancel',
+			})
+				.then(() => {
+					deleteProduct(id)
+						.then(() => {
+							this.getProducts();
+							
+							this.$notify({
+								title: 'Success',
+								message: 'Successfully deleted product!',
+								type: 'success'
+							});
+						})
+						.catch(() => {
+							this.$notify.error({
+								title: 'Error',
+								message: 'An unexpected error occurred'
+							});
+						});
+				})
+				.catch(() => {});
+		},
 		getProducts() {
 			getProducts(this.currentPage, this.paginate).then((res) => {
 				this.products = res.data.data;
