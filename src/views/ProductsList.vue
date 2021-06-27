@@ -1,9 +1,11 @@
 <template>
 <div class="list-container">
+	
 	<div class="list-container__header">
 		<el-input prefix-icon="el-icon-search" class="list-container__search-input" placeholder="What are you looking for?" v-model="search" />
 		<el-button  @click="createNew" type="primary" round icon="el-icon-plus">Create New</el-button>
 	</div>
+
 	<div class="list-container__table">
 		<el-table :data="products">
 			<el-table-column label="#" prop="id" />
