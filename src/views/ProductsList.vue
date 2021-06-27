@@ -1,6 +1,6 @@
 <template>
 <div class="list-container">
-	
+
 	<div class="list-container__header">
 		<el-input prefix-icon="el-icon-search" class="list-container__search-input" placeholder="What are you looking for?" v-model="search" />
 		<el-button  @click="createNew" type="primary" round icon="el-icon-plus">Create New</el-button>
@@ -60,8 +60,6 @@ export default {
 		getProducts() {
 			getProducts().then((res) => {
 				this.products = res.data.data;
-			}).catch((err) => {
-				console.log(err);
 			});
 		},
 		createNew() {
