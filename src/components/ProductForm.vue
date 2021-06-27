@@ -24,13 +24,19 @@
 			<el-input v-model="product.barcode"></el-input>
 		</el-form-item>
 
-		<el-form-item label="Price" prop="price" class="product-form__input-label">
-			<el-input v-model.lazy="product.price" v-money="moneyMask"></el-input>
-		</el-form-item>
+		<el-row :gutter="20">
+			<el-col :span="12">
+				<el-form-item label="Price" prop="price" class="product-form__input-label">
+					<el-input v-model.lazy="product.price" v-money="moneyMask"></el-input>
+				</el-form-item>
+			</el-col>
 
-		<el-form-item label="Stock Quantity" prop="stock_quantity" class="product-form__input-label">
-			<el-input v-mask="'#######'" v-model="product.stock_quantity"></el-input>
-		</el-form-item>
+			<el-col :span="12">
+				<el-form-item label="Stock Quantity" prop="stock_quantity" class="product-form__input-label">
+					<el-input-number v-mask="'#######'" v-model="product.stock_quantity" :min="1" :max="1000000" />
+				</el-form-item>
+			</el-col>
+		</el-row>
 
 		<el-form-item class="product-form__footer">
 			<el-button class="product-form__button" type="primary" @click="onSubmit">Save</el-button>
@@ -52,8 +58,8 @@ export default {
 				description: '',
 				sku: null,
 				barcode: null,
-				price: '',
-				stock_quantity: '',
+				price: 0,
+				stock_quantity: 1,
 			},
 			rules: {
 				name: [
@@ -110,6 +116,10 @@ export default {
                 padding: 0;
             }
         }
+
+		.el-input-number {
+			width: 100%;
+		}
 
         .product-form__footer {
             margin-bottom: 0px !important;
