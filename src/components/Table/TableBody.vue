@@ -25,7 +25,7 @@
 			<el-table-column align="right">
 				<template #default="scope">
 					<el-button size="mini" @click="handleStockHistory(scope.row.id)" icon="el-icon-takeaway-box" />
-					<el-button size="mini" @click="handleEdit(scope.row.id)">Edit</el-button>
+					<el-button size="mini" @click="handleEdit(scope.row.id)" icon="el-icon-edit-outline" />
 					<el-button size="mini" @click="handleDelete(scope.row.id)" icon="el-icon-delete" type="danger" />
 				</template>
 			</el-table-column>
@@ -48,8 +48,8 @@ export default {
 		}
 	},
 	methods: {
-		handleSelectionChange() {
-			this.$emit('selection-change');
+		handleSelectionChange(val) {
+			this.$emit('handle-selection-change', val);
 		},
 		handleStockHistory(id) {
 			this.$emit('stock-history', id);

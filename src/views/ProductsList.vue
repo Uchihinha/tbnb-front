@@ -14,7 +14,7 @@
 	<table-body 
 		:totalTableData="totalProducts" 
 		:tableData="products" 
-		@selection-change="handleSelectionChange"
+		@handle-selection-change="handleSelectionChange"
 		@stock-history="handleStockHistory"
 		@edit="handleEdit"
 		@delete="handleDelete"

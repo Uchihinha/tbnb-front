@@ -19,7 +19,7 @@
 			</el-form-item>
 
 			<el-form-item label="Stock Quantity" prop="stock_quantity" class="bulk-form__input-label">
-				<el-input v-mask="'#######'" v-model="form.stock_quantity"></el-input>
+				<el-input-number v-mask="'#######'" v-model="form.stock_quantity" :min="1" :max="1000000" />
 			</el-form-item>
 
 			<el-form-item class="bulk-form__footer">
@@ -43,7 +43,7 @@ export default {
 				precision: 2
 			},
 			form: {
-				stock_quantity: null,
+				stock_quantity: undefined,
 				price: null
 			}
 		};
@@ -69,7 +69,7 @@ export default {
 		},
 		resetForm() {
 			this.form = {
-				stock_quantity: null,
+				stock_quantity: undefined,
 				price: null
 			};
 		}
@@ -83,6 +83,10 @@ export default {
 </script>
 
 <style lang="scss">
+	.el-input-number {
+		width: 100% !important;
+	}
+
 	.bulk-form {
 		&__footer {
 			margin-bottom: 0px !important;
