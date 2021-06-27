@@ -12,7 +12,11 @@
 
 			<el-table-column label="Name" prop="name" />
 
-			<el-table-column label="Date" prop="created_at" />
+			<el-table-column label="Date" prop="created_at" >
+				<template #default="scope">
+					{{ $filters.toDatetime(scope.row.created_at) }}
+				</template>
+			</el-table-column>
 
 			<el-table-column label="Price" prop="price" >
 				<template #default="scope">
