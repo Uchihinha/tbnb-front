@@ -50,6 +50,11 @@ export default {
 
 			}
 		}
+
+		&__search-input {
+			max-width: 50%;
+			display: flex !important;
+		}
 	}
 
 </style>
