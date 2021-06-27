@@ -19,6 +19,7 @@
 		@edit="handleEdit"
 		@delete="handleDelete"
 		@change-page="changePage"
+		@sort="handleSort"
 	/>
 
 	<bulk-update-dialog @save="saveBulk" @close="isBulkUpdateDialogVisible = false" :visible="isBulkUpdateDialogVisible" />
@@ -45,6 +46,8 @@ export default {
 			isStockHistoryDialogVisible: false,
 			currentPage: 1,
 			paginate: 2,
+			orderField: 'id',
+			order: 'asc',
 			stockHistory: []
 		};
 	},
@@ -78,7 +81,14 @@ export default {
 				.catch(() => {});
 		},
 		getProducts() {
-			getProducts(this.currentPage, this.paginate).then((res) => {
+			let params = {
+				currentPage: this.currentPage,
+				order: this.order,
+				paginate: this.paginate,
+				orderField: this.orderField,
+			};
+
+			getProducts(params).then((res) => {
 				this.products = res.data.data;
 				this.totalProducts = res.data.total;
 			});
@@ -129,6 +139,17 @@ export default {
 					this.stockHistory = res.data;
 				});
 			this.isStockHistoryDialogVisible = true;
+		},
+		handleSort(prop) {
+			this.order = prop.order 
+				? prop.order == 'descending' ? 'desc' : 'asc' 
+				: 'asc';
+
+			this.orderField = prop.prop
+				? prop.prop
+				: 'id';
+
+			this.getProducts();
 		}
 	},
 	mounted() {

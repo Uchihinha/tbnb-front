@@ -1,26 +1,26 @@
 <template>
     <div class="list-container__table">
-		<el-table :data="tableData" @selection-change="handleSelectionChange">
+		<el-table :data="tableData" @selection-change="handleSelectionChange" @sort-change="sort">
 			
 			<el-table-column type="selection" width="55" />
 
-			<el-table-column label="#" prop="id" width="60" />
+			<el-table-column label="#" prop="id" width="60" sortable />
 
-			<el-table-column label="Name" prop="name" />
+			<el-table-column label="Name" prop="name" sortable />
 
-			<el-table-column label="Date" prop="created_at" >
+			<el-table-column label="Date" prop="created_at" sortable>
 				<template #default="scope">
 					{{ $filters.toDatetime(scope.row.created_at) }}
 				</template>
 			</el-table-column>
 
-			<el-table-column label="Price" prop="price" >
+			<el-table-column label="Price" prop="price" sortable >
 				<template #default="scope">
 					{{ $filters.toCurrency(scope.row.price) }}
 				</template>
 			</el-table-column>
 
-			<el-table-column label="Stock" prop="stock_quantity" />
+			<el-table-column label="Stock" prop="stock_quantity" sortable />
 			
 			<el-table-column align="right">
 				<template #default="scope">
@@ -63,6 +63,9 @@ export default {
 		changePage(page) {
 			this.$emit('change-page', page);
 		},
+		sort(prop) {
+			this.$emit('sort', prop);
+		}
 	},
     
 };

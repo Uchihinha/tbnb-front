@@ -1,5 +1,5 @@
 import request from '../request';
 
-export function getProducts(page = 1, paginate = 20) {
-	return request.get(`/products?page=${page}&paginate=${paginate}`);
+export function getProducts({ currentPage = 1, paginate = 20, order = 'asc', orderField = 'id' }) {
+	return request.get(`/products?page=${currentPage}&paginate=${paginate}&order=${order}&order_field=${orderField}`);
 }
