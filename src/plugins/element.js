@@ -1,4 +1,4 @@
-import { ElButton, ElCol, ElDialog, ElForm, ElFormItem, ElInput, ElNotification, ElPagination, ElRow, ElTable, ElTableColumn } from 'element-plus';
+import { ElButton, ElCol, ElDialog, ElForm, ElFormItem, ElInput, ElNotification, ElPagination, ElRow, ElTable, ElTableColumn, ElTimeline, ElTimelineItem } from 'element-plus';
 
 export default (app) => {
 	app.use(ElButton);
@@ -12,4 +12,6 @@ export default (app) => {
 	app.use(ElCol);
 	app.use(ElDialog);
 	app.use(ElPagination);
+	app.use(ElTimeline);
+	app.use(ElTimelineItem);
 };

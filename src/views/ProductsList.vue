@@ -1,6 +1,13 @@
 <template>
 <div class="list-container">
-	<h1 class="list-container__title">Products List</h1>
+	<h1 class="list-container__title">
+		<span>
+			Products List
+		</span>
+		<span class="list-container__title--total">
+			{{ totalProducts }} Total Items
+		</span>
+	</h1>
 
 	<div class="list-container__header">
 		<el-row :gutter="20" class="list-container__row">
@@ -39,34 +46,31 @@
 			<el-table-column label="Stock" prop="stock_quantity" />
 			
 			<el-table-column align="right">
-				<!-- <template #header>
-					<el-input
-					v-model="search"
-					size="mini"
-					placeholder="Type to search"/>
-				</template> -->
 				<template #default="scope">
+					<el-button size="mini" @click="handleStockHistory(scope.row.id)" icon="el-icon-takeaway-box" />
 					<el-button size="mini" @click="handleEdit(scope.row.id)">Edit</el-button>
 					<!-- <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">Delete</el-button> -->
 				</template>
 			</el-table-column>
 
 		</el-table>
-		
+
 		<paginator @change-page="changePage" :total="totalProducts" />
 	</div>
 
 	<bulk-update-dialog @save="saveBulk" @close="isBulkUpdateDialogVisible = false" :visible="isBulkUpdateDialogVisible" />
+	<stock-history-dialog :events="stockHistory" @close="isStockHistoryDialogVisible = false" :visible="isStockHistoryDialogVisible" />
 </div>
 </template>
 
 <script>
-import BulkUpdateDialog from '../components/BulkUpdateDialog.vue';
+import BulkUpdateDialog from '../components/Dialogs/BulkUpdateDialog.vue';
+import StockHistoryDialog from '../components/Dialogs/StockHistoryDialog.vue';
 import Paginator from '../components/Paginator.vue';
-import { getProducts, bulkUpdateProduct } from '../services/product/index';
+import { getProducts, bulkUpdateProduct, getStockHistory } from '../services/product/index';
 
 export default {
-	components: { BulkUpdateDialog, Paginator },
+	components: { BulkUpdateDialog, Paginator, StockHistoryDialog },
 	data() {
 		return {
 			search: '',
@@ -74,8 +78,10 @@ export default {
 			totalProducts: 0,
 			selectedItems: [],
 			isBulkUpdateDialogVisible: false,
+			isStockHistoryDialogVisible: false,
 			currentPage: 1,
-			paginate: 2
+			paginate: 2,
+			stockHistory: []
 		};
 	},
 	methods: {
@@ -130,6 +136,13 @@ export default {
 		changePage(newPage) {
 			this.currentPage = newPage;
 			this.getProducts();
+		},
+		handleStockHistory(id) {
+			getStockHistory(id)
+				.then(res => {
+					this.stockHistory = res.data;
+				});
+			this.isStockHistoryDialogVisible = true;
 		}
 	},
 	mounted() {
@@ -145,6 +158,14 @@ export default {
 
 		&__title {
 			text-align: left;
+			position: relative;
+
+			&--total {
+				font-size: 1rem;
+				position: absolute;
+				bottom: 0;
+				right: 0;
+			}
 		}
 
 		&__header {
