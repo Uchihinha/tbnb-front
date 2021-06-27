@@ -1,20 +1,32 @@
 <template>
 	<div class="product-container">
-		<h1>Edit #{{$route.params.id}}</h1>
+		<h1 class="product-container__title">
+			<span>
+				Edit #{{$route.params.id}}
+			</span>
+			<span class="product-container__title--icon">
+				<el-button @click="handleStockHistory" circle type="primary" icon="el-icon-takeaway-box" />
+			</span>
+		</h1>
 		<product-form :data="product" @saveProduct="submit" @cancel="cancel" />
+		
+		<stock-history-dialog :events="stockHistory" @close="isStockHistoryDialogVisible = false" :visible="isStockHistoryDialogVisible" />
 	</div>
 </template>
 
 <script>
-import { findProduct } from '../services/product';
+import { findProduct, getStockHistory } from '../services/product';
 import ProductForm from '../components/ProductForm.vue';
 import { updateProduct } from '../services/product';
+import StockHistoryDialog from '../components/Dialogs/StockHistoryDialog.vue';
 
 export default {
-	components: { ProductForm },
+	components: { ProductForm, StockHistoryDialog },
 	data() {
 		return {
-			product: {}
+			product: {},
+			isStockHistoryDialogVisible: false,
+			stockHistory: []
 		};
 	},
 	methods: {
@@ -40,6 +52,13 @@ export default {
 		},
 		cancel() {
 			this.$router.push('/products');
+		},
+		handleStockHistory() {
+			getStockHistory(this.$route.params.id)
+				.then(res => {
+					this.stockHistory = res.data;
+				});
+			this.isStockHistoryDialogVisible = true;
 		}
 	},
 	mounted() {
@@ -49,3 +68,18 @@ export default {
 	},
 };
 </script>
+
+<style lang="scss">
+	.product-container {
+		&__title {
+			position: relative;
+
+			&--icon {
+				position: absolute;
+				bottom: 10%;
+				right: 0;
+			}
+		}
+	}
+	
+</style>

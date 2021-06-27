@@ -40,7 +40,7 @@ export default {
 		justify-content: center;
 	}
 
-	el-timelime-item {
+	.el-timeline-item {
 		text-align: left;
 	}
 </style>
