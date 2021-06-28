@@ -1,5 +1,5 @@
 <template>
-	<div class="product-container">
+	<div class="product-container" v-loading="isLoading">
 		<h1 class="product-container__title">
 			<span>
 				Edit #{{$route.params.id}}
@@ -26,11 +26,14 @@ export default {
 		return {
 			product: {},
 			isStockHistoryDialogVisible: false,
-			stockHistory: []
+			stockHistory: [],
+			isLoading: false
 		};
 	},
 	methods: {
 		submit(params) {
+			this.isLoading = true;
+
 			updateProduct(this.$route.params.id, params)
 				.then(() => {
 					this.$notify({
@@ -48,7 +51,8 @@ export default {
 						title: 'Error',
 						message: message
 					});
-				});
+				})
+				.finally(() => this.isLoading = false);
 		},
 		cancel() {
 			this.$router.push('/products');
