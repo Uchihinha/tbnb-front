@@ -11,9 +11,14 @@ import { toDatetime } from './filters/datetime';
 import money from 'v-money';
 import VueTheMask from 'vue-the-mask';
 
+import titleMixin from './mixins/titleMixin';
+
+
 const app = createApp(App);
 installElementPlus(app);
 app.use(router).mount('#app');
+
+app.mixin(titleMixin);
 
 app.use(money);
 
