@@ -1,5 +1,5 @@
 <template>
-    <div class="product-container">
+    <div v-loading="isLoading" class="product-container">
 		<h1>New Product</h1>
         <product-form @saveProduct="submit" @cancel="cancel" />
 	</div>
@@ -12,10 +12,14 @@ import ProductForm from '../components/ProductForm.vue';
 export default {
 	components: { ProductForm },
 	data() {
-		return {};
+		return {
+			isLoading: false
+		};
 	},
 	methods: {
 		submit(params) {
+			this.isLoading = true;
+
 			createProduct(params)
 				.then(() => {
 					this.$notify({
@@ -33,7 +37,8 @@ export default {
 						title: 'Error',
 						message: message
 					});
-				});
+				})
+				.finally(() => this.isLoading = false);
 		},
 		cancel() {
 			this.$router.push('/products');

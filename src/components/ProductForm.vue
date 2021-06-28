@@ -75,6 +75,9 @@ export default {
 				stock_quantity: [
 					{ required: true, message: 'This field is required', trigger: ['change', 'blur'] },
 				],
+				barcode: [
+					{ max: 13, message: 'Length should not be greater than 13 characters', trigger: ['change', 'blur'] }
+				],
 			},
 			moneyMask: {
 				decimal: '.',

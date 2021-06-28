@@ -51,4 +51,8 @@ html {
 	border-radius: 3%;
 	box-shadow: 0px 0px 10px 0px;
 }
+
+.el-loading-mask {
+	border-radius: inherit;
+}
 </style>

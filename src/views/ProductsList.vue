@@ -14,6 +14,7 @@
 	<table-body 
 		:totalTableData="totalProducts" 
 		:tableData="products" 
+		:isLoading="isLoading"
 		@handle-selection-change="handleSelectionChange"
 		@stock-history="handleStockHistory"
 		@edit="handleEdit"
@@ -48,7 +49,8 @@ export default {
 			paginate: 2,
 			orderField: 'id',
 			order: 'asc',
-			stockHistory: []
+			stockHistory: [],
+			isLoading: false
 		};
 	},
 	methods: {
@@ -81,6 +83,8 @@ export default {
 				.catch(() => {});
 		},
 		getProducts() {
+			this.isLoading = true;
+
 			let params = {
 				currentPage: this.currentPage,
 				order: this.order,
@@ -91,6 +95,7 @@ export default {
 			getProducts(params).then((res) => {
 				this.products = res.data.data;
 				this.totalProducts = res.data.total;
+				this.isLoading = false;
 			});
 		},
 		createNew() {

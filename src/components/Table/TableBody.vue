@@ -1,6 +1,6 @@
 <template>
     <div class="list-container__table">
-		<el-table :data="tableData" @selection-change="handleSelectionChange" @sort-change="sort">
+		<el-table :data="tableData" @selection-change="handleSelectionChange" @sort-change="sort" v-loading="isLoading">
 			
 			<el-table-column type="selection" width="55" />
 
@@ -45,7 +45,8 @@ export default {
 		totalTableData: {
 			type: Number,
 			default: 0
-		}
+		},
+		isLoading: Boolean
 	},
 	methods: {
 		handleSelectionChange(val) {
