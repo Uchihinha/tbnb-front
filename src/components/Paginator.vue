@@ -1,6 +1,6 @@
 <template>
     <el-pagination
-        :page-size="2"
+        :page-size="paginate"
         :pager-count="5"
         layout="prev, pager, next"
         :total="total"
@@ -13,7 +13,8 @@
 <script>
 export default {
 	props: {
-		total: Number
+		total: Number,
+		paginate: Number,
 	},
 	methods: {
 		handleCurrentChange(val) {

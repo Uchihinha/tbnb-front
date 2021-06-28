@@ -32,7 +32,7 @@
 
 		</el-table>
 
-		<paginator @change-page="changePage" :total="totalTableData" />
+		<paginator @change-page="changePage" :total="totalTableData" :paginate="paginate" />
 	</div>
 </template>
 
@@ -46,7 +46,8 @@ export default {
 			type: Number,
 			default: 0
 		},
-		isLoading: Boolean
+		isLoading: Boolean,
+		paginate: Number
 	},
 	methods: {
 		handleSelectionChange(val) {

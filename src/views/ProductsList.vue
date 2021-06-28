@@ -14,6 +14,7 @@
 	<table-body 
 		:totalTableData="totalProducts" 
 		:tableData="products" 
+		:paginate="paginate"
 		:isLoading="isLoading"
 		@handle-selection-change="handleSelectionChange"
 		@stock-history="handleStockHistory"
@@ -47,7 +48,7 @@ export default {
 			isBulkUpdateDialogVisible: false,
 			isStockHistoryDialogVisible: false,
 			currentPage: 1,
-			paginate: 2,
+			paginate: 15,
 			orderField: 'id',
 			order: 'asc',
 			stockHistory: [],
