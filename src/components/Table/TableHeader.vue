@@ -2,7 +2,7 @@
     <div class="list-container__header">
 		<el-row :gutter="20" class="list-container__row">
 			<el-col :span="12">
-				<el-input prefix-icon="el-icon-search" class="list-container__search-input grid-content" placeholder="What are you looking for?" />
+				<el-input v-model="search" @input="changeSerch" prefix-icon="el-icon-search" class="list-container__search-input grid-content" placeholder="What are you looking for?" />
 			</el-col>
 
 			<el-col :span="12" class="list-container__buttons">
@@ -14,6 +14,11 @@
 </template>
 <script>
 export default {
+	data() {
+		return {
+			search: ''
+		};
+	},
 	props: {
 		disabledBulkButton: Boolean
 	},
@@ -23,6 +28,9 @@ export default {
 		},
 		createNew() {
 			this.$emit('create-new');
+		},
+		changeSerch() {
+			this.$emit('change-search', this.search);
 		}
 	}
 };

@@ -9,7 +9,7 @@
 		</span>
 	</h1>
 
-	<table-header @show-bulk-update="showBulkUpdate" @create-new="createNew" :disabledBulkButton="!selectedItems.length" />
+	<table-header @change-search="handleSearch" @show-bulk-update="showBulkUpdate" @create-new="createNew" :disabledBulkButton="!selectedItems.length" />
 
 	<table-body 
 		:totalTableData="totalProducts" 
@@ -40,7 +40,7 @@ export default {
 	components: { BulkUpdateDialog, StockHistoryDialog, TableHeader, TableBody },
 	data() {
 		return {
-			search: '',
+			debouncedSearch: '',
 			products: [],
 			totalProducts: 0,
 			selectedItems: [],
@@ -51,8 +51,23 @@ export default {
 			orderField: 'id',
 			order: 'asc',
 			stockHistory: [],
-			isLoading: false
+			isLoading: false,
+			timeout: 0
 		};
+	},
+	computed: {
+		search: {
+			get() {
+				return this.debouncedSearch;
+			},
+			set(val) {
+				if (this.timeout) clearTimeout(this.timeout);
+				this.timeout = setTimeout(() => {
+					this.debouncedSearch = val;
+					this.getProducts();
+				}, 300);
+			}
+		}
 	},
 	methods: {
 		handleEdit(id) {
@@ -91,6 +106,7 @@ export default {
 				order: this.order,
 				paginate: this.paginate,
 				orderField: this.orderField,
+				search: this.search
 			};
 
 			getProducts(params).then((res) => {
@@ -156,6 +172,9 @@ export default {
 				: 'id';
 
 			this.getProducts();
+		},
+		handleSearch(text) {
+			this.search = text;
 		}
 	},
 	mounted() {
