@@ -29,11 +29,11 @@ context('Product List', () => {
 		cy.intercept('GET', '/api/products?page=1&paginate=15&order=asc&order_field=name&search=').as('getOrderName');
 		cy.intercept('GET', '/api/products?page=1&paginate=15&order=desc&order_field=name&search=').as('getOrderNameDesc');
 
-		cy.get('.has-gutter > tr > .el-table_1_column_3 > .cell').click();
+		cy.get('.el-table_1_column_3 > .cell > .caret-wrapper > .ascending').click();
 
 		cy.wait('@getOrderName').its('response.statusCode').should('be.oneOf', [200]);
 
-		cy.get('.has-gutter > tr > .el-table_1_column_3 > .cell').click();
+		cy.get('.el-table_1_column_3 > .cell > .caret-wrapper > .descending').click();
 
 		cy.wait('@getOrderNameDesc').its('response.statusCode').should('be.oneOf', [200]);
 	});
