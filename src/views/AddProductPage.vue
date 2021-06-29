@@ -10,7 +10,7 @@ import { createProduct } from '../services/product';
 import ProductForm from '../components/ProductForm.vue';
 
 export default {
-	title: 'Products - New',
+	title: 'Stock Management - New',
 	components: { ProductForm },
 	data() {
 		return {

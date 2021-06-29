@@ -25,7 +25,7 @@ import { updateProduct } from '../services/product';
 import StockHistoryDialog from '../components/Dialogs/StockHistoryDialog.vue';
 
 export default {
-	title: 'Products - Edit',
+	title: 'Stock Management - Edit',
 	components: { ProductForm, StockHistoryDialog },
 	data() {
 		return {

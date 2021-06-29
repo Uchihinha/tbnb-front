@@ -16,6 +16,7 @@
 <script>
 
 export default {
+	title: 'Stock Management',
 	name: 'Home',
 };
 </script>

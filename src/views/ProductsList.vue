@@ -37,7 +37,7 @@ import TableHeader from '../components/Table/TableHeader.vue';
 import { getProducts, bulkUpdateProduct, getStockHistory, deleteProduct } from '../services/product/index';
 
 export default {
-	title: 'Products - List',
+	title: 'Stock Management - List',
 	components: { BulkUpdateDialog, StockHistoryDialog, TableHeader, TableBody },
 	data() {
 		return {
