@@ -1,0 +1,6 @@
+{
+    "baseUrl": "http://localhost:8081",
+    "env": {
+        "apiUrl": "https://tbnb-api.herokuapp.com/api"
+    }
+}

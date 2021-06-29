@@ -29,7 +29,7 @@ html {
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #2c3e50;
-	margin-top: 60px;
+	margin-top: 2%;
 }
 
 .fade-enter-active,
@@ -49,7 +49,12 @@ html {
 	padding: 30px;
 	background-color: white;
 	border-radius: 3%;
-	box-shadow: 0px 0px 10px 0px;
+	box-shadow: 
+		rgba(64, 158, 255, 0.4) -5px 5px, 
+		rgba(64, 158, 255, 0.3) -10px 10px, 
+		rgba(64, 158, 255, 0.2) -15px 15px, 
+		rgba(64, 158, 255, 0.1) -20px 20px, 
+		rgba(64, 158, 255, 0.05) -25px 25px;
 }
 
 .el-loading-mask {

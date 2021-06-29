@@ -28,6 +28,8 @@ export default {
 						message: 'Successfully created product!',
 						type: 'success'
 					});
+
+					this.$router.push('/products');
 				})
 				.catch((err) => {
 					let message = err.response.data.errors

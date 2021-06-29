@@ -1,6 +1,10 @@
 <template>
 	<div class="product-container" v-loading="isLoading">
-		<h1 class="product-container__title">
+		<el-empty description="Product not found :(" v-if="notFound">
+			<el-button type="primary" @click="$router.push('/products')"><i class="el-icon-back"></i> Back to List</el-button>
+		</el-empty>
+
+		<h1 class="product-container__title" v-if="!notFound && !isLoading">
 			<span>
 				Edit #{{$route.params.id}}
 			</span>
@@ -8,7 +12,7 @@
 				<el-button @click="handleStockHistory" circle type="primary" icon="el-icon-takeaway-box" />
 			</span>
 		</h1>
-		<product-form :data="product" @saveProduct="submit" @cancel="cancel" />
+		<product-form v-show="!notFound && !isLoading" :data="product" @saveProduct="submit" @cancel="cancel" />
 		
 		<stock-history-dialog :events="stockHistory" @close="isStockHistoryDialogVisible = false" :visible="isStockHistoryDialogVisible" />
 	</div>
@@ -28,7 +32,8 @@ export default {
 			product: {},
 			isStockHistoryDialogVisible: false,
 			stockHistory: [],
-			isLoading: false
+			isLoading: true,
+			notFound: false
 		};
 	},
 	methods: {
@@ -42,6 +47,8 @@ export default {
 						message: 'Successfully updated product!',
 						type: 'success'
 					});
+
+					this.$router.push('/products');
 				})
 				.catch((err) => {
 					let message = err.response.data.errors
@@ -66,10 +73,17 @@ export default {
 			this.isStockHistoryDialogVisible = true;
 		}
 	},
-	mounted() {
-		findProduct(this.$route.params.id).then(res => {
-			this.product = res.data;
-		});
+	beforeCreate() {
+		this.isLoading = true;
+
+		findProduct(this.$route.params.id)
+			.then(res => {
+				this.product = res.data;
+			})
+			.catch(() => {
+				this.notFound = true;
+			})
+			.finally(() => this.isLoading = false);
 	},
 };
 </script>
