@@ -1,14 +1,10 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://vuejs.org/images/logo.svg" width="200"></a></p>
+<p align="center"><a href="https://vuejs.org/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1200px-Vue.js_Logo_2.svg.png" width="200"></a></p>
 
 # Stock Management System
 
 This application aims to simulate a stock management system. It was used VueJS (3.0) + Cypress (7.6) + Element Plus + Docker + Node v12.13.
 
 Follow the [link](https://github.com/Uchihinha/tbnb-api) to check out the backend of this application.
-
-## Live Demo
-
-You can get live demo in the following link: https://tbnb-front.herokuapp.com
 
 ## Installation
 ### Development
